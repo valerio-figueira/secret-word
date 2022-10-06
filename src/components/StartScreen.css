@@ -1,0 +1,10 @@
+.start{
+    color: white;
+}
+.start *{
+    padding: .7rem;
+    margin: .7rem;
+}
+.start h1{
+    margin: 3rem;
+}
