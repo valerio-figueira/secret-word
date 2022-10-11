@@ -6,7 +6,6 @@ const Game = ({
   checkLetter,
   scores,
   category,
-  word,
   letters,
   guesses,
   rightGuesses,
@@ -25,7 +24,6 @@ const Game = ({
   }
 
   function getScoreClass(){
-    console.log(scores)
     if((scores / 100) <= (letters.length * 30) / 100){
       return 'low-score';
     } else if((scores / 100) <= (letters.length * 60) / 100){

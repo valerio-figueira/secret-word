@@ -1,0 +1,25 @@
+h1{
+    padding: 1.5rem;
+}
+p{
+    padding: .7rem;
+}
+p span{
+    font-weight: bold;
+}
+button{
+    margin: 2rem;
+}
+
+.low-score{
+    color: crimson;
+}
+.medium-score{
+    color: gold;
+}
+.high-score{
+    color: greenyellow;
+}
+.word{
+    color: mediumpurple;
+}

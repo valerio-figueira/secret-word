@@ -29,6 +29,7 @@ function App() {
   const [rightGuesses, setRightGuesses] = useState([]);
   const [wrongGuesses, setWrongGuesses] = useState([]);
   const [scores, setScores] = useState(0);
+  const [winner, setWinner] = useState();
   
 
   function selectStage(){
@@ -63,6 +64,7 @@ function App() {
         ...actualWrongGuesses, guess
       ]);
       setGuesses(index => (--index));
+      setScores(scores => scores -= 100);
     };
   };
 
@@ -78,30 +80,36 @@ function App() {
     setScores((points) => (
       points += mult
     ));
-
-    const lettersNumber = letters.length;
-    const lowRate = (letters.length * 30) / 100;
-    console.log(lowRate)
-
-    if(rightGuesses >= lowRate){
-
-    }
-  }
-
-  function checkPercentage(){
-
+    
   }
 
   function retry(){
     setGuesses(guessesIndex);
+    setScores(0);
     setRightGuesses([]);
     setWrongGuesses([]);
     selectStage();
   }
+/*
+
+*/
+  useEffect(() => {
+    const uniqueLetters = [...new Set(letters)];
+
+    uniqueLetters.forEach((letter, i) => {
+      if(rightGuesses.includes(letter)){
+        if(i === uniqueLetters.length - 1){
+          setStage(stages[2]);
+          setWinner(true);
+        };
+      };
+    });
+  }, [rightGuesses]);
 
   useEffect(() => {
     if(guesses <= 0){
       setStage(stages[2]);
+      setWinner(false);
     }
   }, [guesses]);
 
@@ -115,7 +123,7 @@ function App() {
 
     splitWordIntoLetters({word});
 
-    setWord({word});
+    setWord(word);    
     setCategory(category);
   }
 
@@ -143,7 +151,15 @@ function App() {
       rightGuesses={rightGuesses}
       wrongGuesses={wrongGuesses}
       />}
-      {stage.name === 'end' && <EndGame retry={retry} />}
+      {stage.name === 'end' && <EndGame
+      retry={retry}
+      scores={scores}
+      word={word}
+      rightGuesses={rightGuesses}
+      wrongGuesses={wrongGuesses}
+      letters={letters}
+      winner={winner}
+      />}
     </div>
   );
 }
